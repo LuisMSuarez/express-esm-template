@@ -1,0 +1,16 @@
+{
+  "name": "expressapitest",
+  "version": "1.0.0",
+  "description": "Sample project to test express apis",
+  "repository": {
+    "type": "git",
+    "url": "ExpressApiTest"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
