@@ -1,9 +1,12 @@
 import express from "express";
+import { container } from "./container.js";
+import { TYPES } from "./types.js";
+import { PingController } from "./controllers/ping.controller.js";
 
 const app = express();
 
-app.get("/ping", (_req, res) => {
-  res.json({ message: "pong" });
-});
+const pingController = container.get<PingController>(TYPES.PingController);
+
+app.get("/ping", (req, res) => pingController.handlePing(req, res));
 
 export default app;
