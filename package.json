@@ -1,18 +1,11 @@
 {
   "name": "expressapitest",
   "version": "1.0.0",
-  "description": "Sample project to test express apis",
-  "repository": {
-    "type": "git",
-    "url": "ExpressApiTest"
-  },
-  "license": "ISC",
-  "author": "",
   "type": "module",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "dev": "node --loader ts-node/esm src/server.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "express": "^5.2.1"
