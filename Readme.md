@@ -1,3 +1,11 @@
+# Description
+
+Canonical repo for an Express web api using production-grade patterns:
+
+- Typescript (tsx for Dev mode)
+- ES Modules
+- Dependency Injection (using Inversify)
+
 # Setup Steps
 
 ## **1. Initialize the project**
