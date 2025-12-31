@@ -56,3 +56,8 @@ npm install --save-dev jest @types/jest ts-jest
 ### added
 
 jest.config.cjs
+
+## **8. enable linting**
+
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+eslint.config.js
