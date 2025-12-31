@@ -48,3 +48,11 @@ Canonical repo for an Express web api using production-grade patterns:
 
 - **launch.json**  
   Configures VS Code debugging (run + breakpoints).
+
+## **7. setup jest for unit testing**
+
+npm install --save-dev jest @types/jest ts-jest
+
+### added
+
+jest.config.cjs
