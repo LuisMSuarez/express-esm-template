@@ -61,3 +61,7 @@ jest.config.cjs
 
 npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 eslint.config.js
+
+## **9. enable prettier**
+
+npm install --save-dev prettier eslint-plugin-prettier eslint-config-prettier
