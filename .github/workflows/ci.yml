@@ -1,0 +1,56 @@
+# CI pipeline for validating code on pushes and pull requests to main/master
+# Ensures consistent quality checks before merging
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    # Use GitHub’s Ubuntu runner (ephemeral VM)
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Test across all active Node LTS versions to catch version-specific issues
+      matrix:
+        node-version: [20.x, 22.x, 24.x]
+
+    steps:
+      # Pull repository contents into the runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Install the correct Node version for this matrix job
+      # Enable npm caching based on package-lock.json hash for faster installs
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      # Install dependencies:
+      # - npm ci: fast, deterministic, strict (fails if lockfile is out of sync)
+      # - fallback to npm install: more forgiving, prevents pipeline failures
+      # --prefer-offline: use cached packages when possible
+      # --no-audit / --progress=false: cleaner, faster CI logs
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false || npm install --no-audit --progress=false
+
+      # Run linting to enforce code quality and catch issues early
+      - name: Lint (if present)
+        run: npm run lint --if-present
+
+      # Build the project only if a build script exists
+      - name: Build (if present)
+        run: npm run build --if-present
+
+      # Run tests in strict CI mode (CI=true)
+      # --if-present: safe for packages without tests
+      # --silent: reduces npm noise while preserving test output
+      - name: Run tests
+        env:
+          CI: true
+        run: npm test --if-present --silent
