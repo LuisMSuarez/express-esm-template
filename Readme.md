@@ -1,93 +1,114 @@
-# Description
+# 🚀 Setting up an Express API takes 10 lines of code… but making it production‑ready is a whole different story
 
-Canonical repo for an Express web api using production-grade patterns:
+Most developers have had that moment:  
+Spin up a new Node.js project, install Express, add a single route… and suddenly you have an API server running in under 10 lines.
 
-- Typescript (tsx for Dev mode)
-- ES Modules
-- Dependency Injection (using Inversify)
+But here’s the reality:  
+**“Hello World” is easy. Production‑grade is not.**
 
-# Setup Steps
+Once you move beyond a toy project, you quickly realize how many capabilities a real‑world API needs before it’s ready for enterprise environments — observability, testing, linting, dependency injection, module strategy, logging, formatting, containerization, and more.
 
-## **1. Initialize the project**
+That’s exactly why I created:
 
-- **npm init**  
-  Creates a new Node.js project.  
-  **Important:** choose **module** instead of CommonJS.
+**express-esm-template**  
+https://github.com/LuisMSuarez/express-esm-template
 
----
-
-## **2. Install Express**
-
-- **npm i express**  
-  Installs the Express web framework.
+A canonical starter repo that bundles modern, scalable, enterprise‑ready patterns for Express.
 
 ---
 
-## **3. Install TypeScript + tooling**
+# 📦 Capabilities Included
 
-- **npm install --save-dev typescript ts-node @types/express**  
-  Adds TypeScript, ts-node, and Express type definitions.
+Below is the full list of production‑grade features baked into the template.
 
----
+## 1. TypeScript (with tsx for Dev mode)
 
-## **4. Run the development server**
+Strong typing, fast iteration, and modern DX.
 
-- **npm run dev**  
-  Executes the `dev` script defined in `package.json`.
+## 2. ES Modules
 
----
+Future‑proof module strategy aligned with modern Node.js.
 
-## **5. tsconfig.json**
+## 3. Dependency Injection (Inversify)
 
-- **tsconfig.json**  
-  Configures TypeScript behavior for the project.
+Clean architecture, testability, and separation of concerns.
 
----
+## 4. Jest Unit Testing
 
-## **6. launch.json**
+Configured with `ts-jest` and a ready‑to‑use `jest.config.cjs`.
 
-- **launch.json**  
-  Configures VS Code debugging (run + breakpoints).
+## 5. ESLint
 
-## **7. setup jest for unit testing**
+Static analysis and code quality enforcement.
 
-npm install --save-dev jest @types/jest ts-jest
+## 6. Prettier
 
-### added
+Consistent formatting across the entire codebase.
 
-jest.config.cjs
+## 7. Morgan (HTTP Access Logging)
 
-## **8. enable linting**
+Nginx‑style access logs for every request.
 
-npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
-eslint.config.js
+Morgan is a request logger designed for:
 
-## **9. enable prettier**
-
-npm install --save-dev prettier eslint-plugin-prettier eslint-config-prettier
-
-## **10. enable morgan as request/access middleware**
-
-npm install morgan
-npm i --save-dev @types/morgan
-
-Example:
-
-::1 - - [01/Jan/2026:18:36:40 +0000] "GET /ping HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0"
-
-Morgan is a request logger. Its entire purpose is to emit access logs — the same style you’d get from Nginx or Apache.
-Here’s what Morgan is designed for:
-HTTP request logging: method, URL, status code, response time
-
-- Access log formats: combined, common, tiny, etc.
+- HTTP method, URL, status code, response time
+- Access log formats (combined, common, tiny)
 - Streaming logs to stdout or a file
-- Middleware integration: sits in the Express pipeline
+- Middleware integration
 
-## **11. Enable pino for app event logging**
+## 8. Pino (Application Event Logging)
 
-npm install pino pino-http
-npm install pino-pretty
+High‑performance structured JSON logs for application events.
 
-example of log "Ping endpoint called"
+## 9. VS Code Debugging (launch.json)
 
-{"level":30,"time":1767293539689,"pid":18236,"hostname":"DESKTOP-MCR7HBJ","req":{"id":2,"method":"GET","url":"/ping","query":{},"params":{},"headers":{"host":"localhost:3000","connection":"keep-alive","sec-ch-ua":"\"Microsoft Edge\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"Windows\"","dnt":"1","upgrade-insecure-requests":"1","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,_/_;q=0.8,application/signed-exchange;v=b3;q=0.7","sec-fetch-site":"none","sec-fetch-mode":"navigate","sec-fetch-user":"?1","sec-fetch-dest":"document","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9","if-none-match":"W/\"12-6FyCUNJCdUkgXM8yXmM99u6fQw0\""},"remoteAddress":"::1","remotePort":61667},"msg":"Ping endpoint called"}
+Breakpoints, stepping, and smooth debugging experience.
+
+## 10. tsconfig.json tuned for NodeNext
+
+Correct ESM behavior, strict typing, and clean build output.
+
+## 11. Dockerfile (Containerization)
+
+A production‑grade Dockerfile that:
+
+- Uses multi‑stage builds
+- Produces a minimal runtime image
+- Ensures reproducible deployments
+- Aligns with enterprise container standards
+
+## 12. GitHub CI workflow (YAML)
+
+Automated testing, linting, type‑checking, and Node version matrix builds — ensuring every commit is validated before it reaches main.
+
+This is essential for:
+
+- Cloud deployments
+- CI/CD pipelines
+- Kubernetes
+- Local reproducibility
+
+---
+
+# 🧱 Why this template exists
+
+I wanted a clean, modern, batteries‑included Express starter that reflects how real teams build APIs today:
+
+- Strong typing
+- Clear separation of concerns
+- Enterprise‑grade logging
+- Testability from day one
+- Modern ESM module strategy
+- Container‑ready
+- Developer experience that feels fast and frictionless
+
+Instead of rebuilding this scaffolding for every new project, I packaged it into a reusable template.
+
+---
+
+# 🔗 Repo
+
+**express-esm-template**  
+https://github.com/LuisMSuarez/express-esm-template
+
+If you’re starting a new Express API in 2026, this gives you a solid foundation that scales with you.
