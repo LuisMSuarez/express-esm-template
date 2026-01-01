@@ -7,7 +7,8 @@ import { Request, Response } from "express";
 export class PingController {
   constructor(@inject(TYPES.PingService) private pingService: PingService) {}
 
-  handlePing(_req: Request, res: Response) {
+  handlePing(req: Request, res: Response) {
+    req.log.info("Ping endpoint called");
     res.json(this.pingService.getMessage());
   }
 }
