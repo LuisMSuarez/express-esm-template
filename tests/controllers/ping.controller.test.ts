@@ -25,7 +25,7 @@ describe("PingController", () => {
   });
 
   it("returns pong message", () => {
-    const req: any = { log: { info: jest.fn() } };
+    const req: any = { validated: { query: {} }, log: { info: jest.fn() } };
     const res: any = {
       json: jest.fn(),
     };
@@ -33,6 +33,9 @@ describe("PingController", () => {
     controller.handlePing(req, res);
 
     expect(mockPingService.getMessage).toHaveBeenCalled();
-    expect(res.json).toHaveBeenCalledWith({ message: "pong" });
+    expect(res.json).toHaveBeenCalledWith({
+      message: "pong",
+      name: "anonymous",
+    });
   });
 });

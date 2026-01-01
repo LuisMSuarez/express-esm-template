@@ -8,7 +8,13 @@ export class PingController {
   constructor(@inject(TYPES.PingService) private pingService: PingService) {}
 
   handlePing(req: Request, res: Response) {
+    const name = req.validated?.query?.name;
+
     req.log.info("Ping endpoint called");
-    res.json(this.pingService.getMessage());
+
+    res.json({
+      ...this.pingService.getMessage(),
+      name: name ?? "anonymous",
+    });
   }
 }

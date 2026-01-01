@@ -1,10 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import pino from "pino";
-import { container } from "./container.js";
-import { TYPES } from "./types.js";
-import { PingController } from "./controllers/ping.controller.js";
 import { pinoHttp } from "pino-http";
+import router from "./routes/ping.routes.js";
 
 const app = express();
 
@@ -20,8 +18,6 @@ const logger = pino({
 // Attach Pino to each request
 app.use(pinoHttp({ logger }));
 
-const pingController = container.get<PingController>(TYPES.PingController);
-
-app.get("/ping", (req, res) => pingController.handlePing(req, res));
-
+// Load routes from router
+app.use(router);
 export default app;
