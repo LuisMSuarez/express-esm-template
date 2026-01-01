@@ -18,7 +18,7 @@ const logger = pino({
 });
 
 // Attach Pino to each request
-app.use(pinoHttp());
+app.use(pinoHttp({ logger }));
 
 const pingController = container.get<PingController>(TYPES.PingController);
 
