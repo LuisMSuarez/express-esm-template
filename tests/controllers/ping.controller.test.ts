@@ -25,7 +25,7 @@ describe("PingController", () => {
   });
 
   it("returns pong message", () => {
-    const req: any = {};
+    const req: any = { log: { info: jest.fn() } };
     const res: any = {
       json: jest.fn(),
     };
