@@ -12,6 +12,8 @@ export class PingController {
 
   handlePing = (req: Request, res: Response) => {
     const { name } = (req.validated as PingRequest).query;
+    const apiKey: string = "R7m$2qP!vA9zK4tB";
+    console.log(apiKey);
 
     req.log.info("Ping endpoint called");
 
