@@ -1,33 +1,24 @@
-import { Container } from "inversify";
-import { TYPES } from "../../src/types.js";
 import { PingController } from "../../src/controllers/ping.controller.js";
 import { IPingService } from "../../src/services/ping.service.interface.js";
 
 describe("PingController", () => {
-  let container: Container;
   let controller: PingController;
-
-  // Mock service
-  const mockPingService: jest.Mocked<IPingService> = {
-    getMessage: jest.fn().mockReturnValue({ message: "pong" }),
-  };
+  let mockPingService: jest.Mocked<IPingService>;
 
   beforeEach(() => {
-    container = new Container();
+    mockPingService = {
+      getMessage: jest.fn().mockReturnValue({ message: "pong" }),
+    };
 
-    // Bind mock instead of real service
-    container
-      .bind<IPingService>(TYPES.PingService)
-      .toConstantValue(mockPingService);
-
-    // Bind controller normally
-    container.bind(TYPES.PingController).to(PingController);
-
-    controller = container.get(TYPES.PingController);
+    controller = new PingController(mockPingService);
   });
 
   it("returns pong message", () => {
-    const req: any = { validated: { query: {} }, log: { info: jest.fn() } };
+    const req: any = {
+      validated: { query: {} },
+      log: { info: jest.fn() },
+    };
+
     const res: any = {
       json: jest.fn(),
     };
