@@ -8,33 +8,33 @@ on:
   pull_request:
     branches: [main, master]
 
-# ---------------------------------------------------------
-# Security scanning job (runs once, outside the Node matrix)
-# ---------------------------------------------------------
-gitleaks:
-  name: Secret Scan (Gitleaks)
-  runs-on: ubuntu-latest
-
-  steps:
-    # Pull repository contents into the runner
-    # fetch-depth: 0 ensures full history is available for PR diff scanning
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    # Run Gitleaks using the official action
-    # GITHUB_TOKEN is required for PR scanning as of Gitleaks Action v2
-    - name: Scan for secrets with Gitleaks
-      uses: gitleaks/gitleaks-action@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-# ---------------------------------------------------------
-# Build + Test job (runs for each Node version in the matrix)
-# Depends on Gitleaks to ensure security checks pass first
-# ---------------------------------------------------------
 jobs:
+  # ---------------------------------------------------------
+  # Security scanning job (runs once, outside the Node matrix)
+  # ---------------------------------------------------------
+  gitleaks:
+    name: Secret Scan (Gitleaks)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pull repository contents into the runner
+      # fetch-depth: 0 ensures full history is available for PR diff scanning
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Run Gitleaks using the official action
+      # GITHUB_TOKEN is required for PR scanning as of Gitleaks Action v2
+      - name: Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ---------------------------------------------------------
+  # Build + Test job (runs for each Node version in the matrix)
+  # Depends on Gitleaks to ensure security checks pass first
+  # ---------------------------------------------------------
   build-and-test:
     needs: gitleaks
     # Use GitHub’s Ubuntu runner (ephemeral VM)
@@ -56,4 +56,32 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache:
+          cache: "npm"
+
+      # Install dependencies:
+      # - npm ci: fast, deterministic, strict (fails if lockfile is out of sync)
+      # - fallback to npm install: more forgiving, prevents pipeline failures
+      # --prefer-offline: use cached packages when possible
+      # --no-audit / --progress=false: cleaner, faster CI logs
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false || npm install --no-audit --progress=false
+
+      # Prettier formatting check
+      - name: Check formatting with Prettier
+        run: npx prettier --check .
+
+      # Run linting to enforce code quality and catch issues early
+      - name: Lint (if present)
+        run: npm run lint --if-present
+
+      # Build the project only if a build script exists
+      - name: Build (if present)
+        run: npm run build --if-present
+
+      # Run tests in strict CI mode (CI=true)
+      # --if-present: safe for packages without tests
+      # --silent: reduces npm noise while preserving test output
+      - name: Run tests
+        env:
+          CI: true
+        run: npm test --if-present --silent
