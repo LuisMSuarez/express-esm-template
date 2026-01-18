@@ -1,5 +1,6 @@
 import { injectable } from "inversify";
-import { IPingService, PingResponse } from "./ping.service.interface.js";
+import { IPingService } from "./ping.service.interface.js";
+import { PingResponse } from "../contracts/pingResponse.js";
 
 @injectable()
 export class PingService implements IPingService {
