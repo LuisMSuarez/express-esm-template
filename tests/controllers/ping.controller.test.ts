@@ -1,14 +1,14 @@
 import { Container } from "inversify";
 import { TYPES } from "../../src/types.js";
 import { PingController } from "../../src/controllers/ping.controller.js";
-import { PingService } from "../../src/services/ping.service.js";
+import { IPingService } from "../../src/services/ping.service.interface.js";
 
 describe("PingController", () => {
   let container: Container;
   let controller: PingController;
 
   // Mock service
-  const mockPingService: jest.Mocked<PingService> = {
+  const mockPingService: jest.Mocked<IPingService> = {
     getMessage: jest.fn().mockReturnValue({ message: "pong" }),
   };
 
@@ -16,7 +16,9 @@ describe("PingController", () => {
     container = new Container();
 
     // Bind mock instead of real service
-    container.bind(TYPES.PingService).toConstantValue(mockPingService);
+    container
+      .bind<IPingService>(TYPES.PingService)
+      .toConstantValue(mockPingService);
 
     // Bind controller normally
     container.bind(TYPES.PingController).to(PingController);

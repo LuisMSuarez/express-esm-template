@@ -1,15 +1,15 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types.js";
-import { PingService } from "../services/ping.service.js";
 import { Request, Response } from "express";
 import { z } from "zod";
 import { PingRequestSchema } from "../schemas/ping.schema.js";
+import { IPingService } from "../services/ping.service.interface.js";
 
 type PingRequest = z.infer<typeof PingRequestSchema>;
 
 @injectable()
 export class PingController {
-  constructor(@inject(TYPES.PingService) private pingService: PingService) {}
+  constructor(@inject(TYPES.PingService) private pingService: IPingService) {}
 
   handlePing(req: Request, res: Response) {
     const { name } = (req.validated as PingRequest).query;
