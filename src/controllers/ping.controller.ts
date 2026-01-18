@@ -1,4 +1,4 @@
-import { inject, injectable } from "inversify";
+import { inject } from "inversify";
 import { TYPES } from "../types.js";
 import { Request, Response } from "express";
 import { z } from "zod";
