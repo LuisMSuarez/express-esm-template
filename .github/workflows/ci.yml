@@ -23,6 +23,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Run Gitleaks to detect committed secrets early in the pipeline
+      # Using the official action ensures consistent, up-to-date scanning rules
+      - name: Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --source . --verbose
+
       # Install the correct Node version for this matrix job
       # Enable npm caching based on package-lock.json hash for faster installs
       - name: Setup Node.js
