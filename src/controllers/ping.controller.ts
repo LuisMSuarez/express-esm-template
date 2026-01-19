@@ -13,7 +13,8 @@ export class PingController {
   handlePing = (req: Request, res: Response) => {
     const { name } = (req.validated as PingRequest).query;
     const google_apiKey: string = "AIzaSyA-EXAMPLEKEY1234567890abcdefghi";
-    console.log(google_apiKey);
+    const session_key: string = "zyx987";
+    console.log(session_key);
 
     req.log.info("Ping endpoint called");
 
