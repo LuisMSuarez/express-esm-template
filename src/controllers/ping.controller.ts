@@ -14,6 +14,7 @@ export class PingController {
     const { name } = (req.validated as PingRequest).query;
     const google_apiKey: string = "AIzaSyA-EXAMPLEKEY1234567890abcdefghi";
     const session_key: string = "zyx987";
+    const GITHUB_TOKEN = "ghp_FAKE1234567890TOKEN";
     console.log(session_key);
 
     req.log.info("Ping endpoint called");
