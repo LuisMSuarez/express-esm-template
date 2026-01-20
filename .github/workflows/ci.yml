@@ -2,6 +2,10 @@
 # Ensures consistent quality checks before merging
 name: CI
 
+permissions:
+  contents: read
+  pull-requests: write # To enable Gitleaks to add PR comments on leaked secrets
+
 on:
   push:
     branches: [main, master]
@@ -9,7 +13,36 @@ on:
     branches: [main, master]
 
 jobs:
+  # ---------------------------------------------------------
+  # Security scanning job (runs once, outside the Node matrix)
+  # ---------------------------------------------------------
+  gitleaks:
+    name: Secret Scan (Gitleaks)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pull repository contents into the runner
+      # fetch-depth: 0 ensures full history is available for PR diff scanning
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Run Gitleaks using the official action
+      # GITHUB_TOKEN is required for PR scanning as of Gitleaks Action v2
+      # Action reads config from .gitleals.toml at repo root by default
+      # This file can be pulled (and edited) from https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+      - name: Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ---------------------------------------------------------
+  # Build + Test job (runs for each Node version in the matrix)
+  # Depends on Gitleaks to ensure security checks pass first
+  # ---------------------------------------------------------
   build-and-test:
+    needs: gitleaks
     # Use GitHub’s Ubuntu runner (ephemeral VM)
     runs-on: ubuntu-latest
 
