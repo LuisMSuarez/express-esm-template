@@ -68,7 +68,11 @@ Breakpoints, stepping, and smooth debugging experience.
 
 Correct ESM behavior, strict typing, and clean build output.
 
-## 11. Dockerfile (Containerization)
+## 11. Gitleaks credential scanner
+
+Powerful, open-source tool designed to help developers detect secrets such as API keys, passwords, and tokens in their projects.
+
+## 12. Dockerfile (Containerization)
 
 A production‑grade Dockerfile that:
 
@@ -77,7 +81,7 @@ A production‑grade Dockerfile that:
 - Ensures reproducible deployments
 - Aligns with enterprise container standards
 
-## 12. GitHub CI workflow (YAML)
+## 13. GitHub CI workflow (YAML)
 
 Automated testing, linting, type‑checking, and Node version matrix builds — ensuring every commit is validated before it reaches main.
 
