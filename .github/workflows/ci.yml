@@ -30,6 +30,8 @@ jobs:
 
       # Run Gitleaks using the official action
       # GITHUB_TOKEN is required for PR scanning as of Gitleaks Action v2
+      # Action reads config from .gitleals.toml at repo root by default
+      # This file can be pulled (and edited) from https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
       - name: Scan for secrets with Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
