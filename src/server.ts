@@ -1,3 +1,4 @@
+import 'dotenv-flow/config';
 import app from "./app.js";
 
 // app and server are split to avoid an import of app
