@@ -2,6 +2,10 @@
 # Ensures consistent quality checks before merging
 name: CI
 
+permissions:
+  contents: read
+  pull-requests: write # To enable Gitleaks to add PR comments on leaked secrets
+
 on:
   push:
     branches: [main, master]
