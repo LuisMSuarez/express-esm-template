@@ -1,2 +1,19 @@
-/node_modules
-/dist
+# Node
+node_modules/
+dist/
+
+# dotenv files (keep .env.example in repo)
+# Ignore only machine-specific or secret env files
+.env.local
+.env.*.local
+
+# Allow environment config files
+!.env
+!.env.development
+!.env.test
+!.env.staging
+!.env.production
+
+# Keep example file
+!.env.example
+

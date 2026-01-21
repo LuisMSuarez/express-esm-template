@@ -95,5 +95,8 @@ example of log "Ping endpoint called"
 ## **12. Install zod for parameter validation**
 npm install zod
 
-## **13. Install Gitleaks for credential scanning**
+## **13. Dotenv flow for per-environment config**
+npm install --save-dev dotenv-flow
+
+## **14. Install Gitleaks for credential scanning**
 https://github.com/gitleaks/gitleaks
