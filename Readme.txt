@@ -95,3 +95,6 @@ example of log "Ping endpoint called"
 ## **12. Install zod for parameter validation**
 npm install zod
 
+
+## **13. Dotenv flow for per-environment config**
+npm install --save-dev dotenv-flow
