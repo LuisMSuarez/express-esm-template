@@ -72,7 +72,13 @@ Correct ESM behavior, strict typing, and clean build output.
 
 Powerful, open-source tool designed to help developers detect secrets such as API keys, passwords, and tokens in their projects.
 
-## 12. Dockerfile (Containerization)
+## 12. Dotenv-flow for per-environment config
+
+dotenv‑flow is a configuration loader for Node.js that reads a layered set of .env files—base, environment‑specific, and local overrides—and merges them in the correct order based on the current NODE_ENV, giving you a clean, predictable way to manage environment variables across development, testing, staging, and production.
+
+node -e "console.log(process.env.NODE_ENV)"
+
+## 13. Dockerfile (Containerization)
 
 A production‑grade Dockerfile that:
 
@@ -81,7 +87,7 @@ A production‑grade Dockerfile that:
 - Ensures reproducible deployments
 - Aligns with enterprise container standards
 
-## 13. GitHub CI workflow (YAML)
+## 14. GitHub CI workflow (YAML)
 
 Automated testing, linting, type‑checking, and Node version matrix builds — ensuring every commit is validated before it reaches main.
 

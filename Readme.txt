@@ -94,3 +94,4 @@ example of log "Ping endpoint called"
 
 ## **12. Install zod for parameter validation**
 npm install zod
+
