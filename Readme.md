@@ -98,6 +98,10 @@ This is essential for:
 - Kubernetes
 - Local reproducibility
 
+## 15. Swagger (OpenAPI Documentation)
+
+Interactive API documentation with swagger-jsdoc, providing automatic OpenAPI 3.0 specification generation from JSDoc comments in the route files.
+
 ---
 
 # 🧱 Why this template exists
