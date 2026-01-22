@@ -100,3 +100,12 @@ npm install --save-dev dotenv-flow
 
 ## **14. Install Gitleaks for credential scanning**
 https://github.com/gitleaks/gitleaks
+
+## **15. Enable swagger and OpenAI spec for API introspection**
+Installed dependencies: swagger-jsdoc, swagger-ui-express, and their TypeScript type definitions
+Created Swagger configuration: src/config/swagger.ts with OpenAPI 3.0 setup
+Integrated Swagger middleware: Added routes in src/app.ts for Swagger UI and JSON spec
+Documented the /ping endpoint: Added JSDoc comments with OpenAPI 3.0 format
+Access points
+Swagger UI: http://localhost:3000/api-docs
+OpenAPI JSON spec: http://localhost:3000/api-docs.json
