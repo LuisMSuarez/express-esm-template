@@ -21,3 +21,5 @@ coverage/
 # Keep example file
 !.env.example
 
+license/license-compliance-report.json
+license/licenses.csv

@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
+    "clean": "rm -rf dist",
+    "clean:all": "rm -rf dist && rm -rf node_modules",
     "start": "node dist/server.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "license:check": "npx --yes license-checker --csv --excludePrivatePackages > license/licenses.csv && node license/license-report.js"
   },
   "dependencies": {
     "dotenv-flow": "^3.3.0",
