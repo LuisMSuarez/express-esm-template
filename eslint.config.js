@@ -6,10 +6,12 @@ import prettier from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
+  // Global ignores - applies to all files
+  {
+    ignores: ["dist/**", "coverage/**", "license/**", "node_modules/**"],
+  },
   {
     files: ["**/*.ts"],
-    ignores: ["dist/**", "node_modules/**"],
-
     languageOptions: {
       parser: tsparser,
       parserOptions: {
