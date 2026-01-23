@@ -90,4 +90,4 @@ jobs:
       - name: Run tests
         env:
           CI: true
-        run: npm test --if-present --silent
+        run: npm run test:coverage --if-present --silent
