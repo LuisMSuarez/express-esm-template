@@ -2,6 +2,10 @@
 node_modules/
 dist/
 
+# Coverage reports
+coverage/
+*.lcov
+
 # dotenv files (keep .env.example in repo)
 # Ignore only machine-specific or secret env files
 .env.local
