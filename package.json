@@ -9,8 +9,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "license:check": "npx --yes license-checker --csv --excludePrivatePackages > licenses.csv && node final-license-report.js"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "dotenv-flow": "^3.3.0",
