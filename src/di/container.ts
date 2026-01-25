@@ -1,7 +1,7 @@
 import { Container } from "inversify";
-import { TYPES } from "./types.js";
-import { PingService } from "./services/ping.service.js";
-import { IPingService } from "./services/ping.service.interface.js";
+import { TYPES } from "../types.js";
+import { IPingService } from "../api/v1/modules/health/ping.service.interface.js";
+import { PingService } from "../api/v1/modules/health/ping.service.js";
 
 // Setup of IOC container
 const container = new Container();

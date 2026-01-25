@@ -1,5 +1,5 @@
-import { PingController } from "../../src/controllers/ping.controller.js";
-import { IPingService } from "../../src/services/ping.service.interface.js";
+import { PingController } from "../../../src/api/v1/modules/health/index.js";
+import { IPingService } from "../../../src/api/v1/modules/health/ping.service.interface.js";
 
 describe("PingController", () => {
   let controller: PingController;

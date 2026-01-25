@@ -3,8 +3,8 @@ import morgan from "morgan";
 import pino from "pino";
 import { pinoHttp } from "pino-http";
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./config/swagger.js";
-import router from "./routes/ping.routes.js";
+import { swaggerSpec } from "../config/swagger.js";
+import v1 from "../api/v1/index.js";
 
 const app = express();
 
@@ -27,6 +27,6 @@ app.get("/api-docs.json", (req, res) => {
   res.send(swaggerSpec);
 });
 
-// Load routes from router
-app.use(router);
+// Load API routes
+app.use("/api/v1", v1);
 export default app;
