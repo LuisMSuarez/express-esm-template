@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { TYPES } from "../types.js";
+import { TYPES } from "./types/types.js";
 import { IPingService } from "../api/v1/modules/health/ping.service.interface.js";
 import { PingService } from "../api/v1/modules/health/ping.service.js";
 
