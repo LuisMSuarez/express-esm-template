@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch src/app/server.ts",
     "build": "tsc",
     "clean": "rm -rf dist",
     "clean:all": "rm -rf dist && rm -rf node_modules",
-    "start": "node dist/server.js",
+    "start": "node dist/app/server.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint .",

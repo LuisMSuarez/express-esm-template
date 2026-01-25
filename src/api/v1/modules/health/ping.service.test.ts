@@ -1,4 +1,4 @@
-import { PingService } from "../../src/services/ping.service.js";
+import { PingService } from "./ping.service.js";
 
 describe("PingService", () => {
   let service: PingService;

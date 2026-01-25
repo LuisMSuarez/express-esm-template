@@ -1,9 +1,9 @@
 import { inject } from "inversify";
-import { TYPES } from "../types.js";
+import { TYPES } from "../../../../core/types/types.js";
 import { Request, Response } from "express";
 import { z } from "zod";
-import { PingRequestSchema } from "../schemas/ping.schema.js";
-import { IPingService } from "../services/ping.service.interface.js";
+import { PingRequestSchema } from "../../../../core/schemas/ping.schema.js";
+import { IPingService } from "./ping.service.interface.js";
 
 type PingRequest = z.infer<typeof PingRequestSchema>;
 

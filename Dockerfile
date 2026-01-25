@@ -28,10 +28,10 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Copy compiled JS
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/dist/app ./dist/app
 
 # Expose port
 EXPOSE 3000
 
 # Start the server
-CMD ["node", "dist/server.js"]
+CMD ["node", "dist/app/server.js"]

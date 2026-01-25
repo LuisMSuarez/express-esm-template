@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { container } from "../container.js";
-import { TYPES } from "../types.js";
-import { PingController } from "../controllers/ping.controller.js";
-import { validate } from "../middleware/validate.js";
-import { PingRequestSchema } from "../schemas/ping.schema.js";
-import { IPingService } from "../services/ping.service.interface.js";
+import { TYPES } from "../../../../core/types/types.js";
+import { PingController } from "./ping.controller.js";
+import { validate } from "../../../../core/middleware/validate.js";
+import { PingRequestSchema } from "../../../../core/schemas/ping.schema.js";
+import { IPingService } from "./ping.service.interface.js";
+import { container } from "../../../../core/container.js";
 
 const router = Router();
 const pingService = container.get<IPingService>(TYPES.PingService);
