@@ -1,4 +1,4 @@
-import { PingService } from "../../../src/api/v1/modules/health/index.js";
+import { PingService } from "./ping.service.js";
 
 describe("PingService", () => {
   let service: PingService;
