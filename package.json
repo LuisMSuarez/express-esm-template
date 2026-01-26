@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/app/server.ts",
-    "build": "tsc",
-    "clean": "rm -rf dist",
-    "clean:all": "rm -rf dist && rm -rf node_modules",
+    "build": "tsc --project tsconfig.build.json",
+    "clean": "rimraf dist",
+    "clean:all": "rimraf dist && rimraf node_modules",
     "start": "node dist/app/server.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -14,7 +14,7 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "license:check": "npx --yes license-checker --csv --excludePrivatePackages > license/licenses.csv && node license/license-report.js",
-    "presubmit": "npm run format:check && npm run lint && npm run test:coverage && npm run license:check"
+    "presubmit": "npm run format:check && npm run lint && npm run build && npm run test:coverage && npm run license:check"
   },
   "dependencies": {
     "dotenv-flow": "^3.3.0",
@@ -43,6 +43,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "jest": "^30.2.0",
     "prettier": "^3.7.4",
+    "rimraf": "^6.1.2",
     "ts-jest": "^29.4.6",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
