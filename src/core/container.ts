@@ -1,15 +1,10 @@
 import { Container } from "inversify";
-import { TYPES } from "./types/types.js";
-import { IPingService } from "../api/v1/modules/health/ping.service.interface.js";
-import { PingService } from "../api/v1/modules/health/ping.service.js";
+import { HealthModule } from "../api/v1/modules/health/index.js";
 
 // Setup of IOC container
 const container = new Container();
 
-// Registration of classes
-container
-  .bind<IPingService>(TYPES.PingService)
-  .to(PingService)
-  .inSingletonScope();
+// Registration of classes per module
+HealthModule.register(container);
 
 export { container };
