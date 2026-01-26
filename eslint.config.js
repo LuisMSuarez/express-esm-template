@@ -6,12 +6,37 @@ import prettier from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
-  // Global ignores - applies to all files
   {
     ignores: ["dist/**", "coverage/**", "license/**", "node_modules/**"],
   },
+
+  // ------------------------------------------------------------
+  // TEST FILES FIRST — so they don't inherit main parserOptions
+  // ------------------------------------------------------------
+  {
+    files: ["**/*.test.ts", "**/*.spec.ts"],
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        project: "./tsconfig.test.json",
+        sourceType: "module",
+      },
+      globals: {
+        ...globals.jest,
+      },
+    },
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
+
+  // ------------------------------------------------------------
+  // MAIN TS CONFIG — explicitly ignores test files
+  // ------------------------------------------------------------
   {
     files: ["**/*.ts"],
+    ignores: ["**/*.test.ts", "**/*.spec.ts"], // ← prevents overlap
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -30,30 +55,9 @@ export default [
     },
 
     rules: {
-      // TypeScript recommended rules
       ...tseslint.configs.recommended.rules,
-
-      // Disable rules that conflict with Prettier
       ...eslintConfigPrettier.rules,
-
-      // Run Prettier as an ESLint rule
       "prettier/prettier": "error",
-    },
-  },
-
-  // ------------------------------------------------------------
-  // Jest test overrides — allow `any` and relax strict rules
-  // ------------------------------------------------------------
-  {
-    files: ["**/*.test.ts", "**/*.spec.ts"],
-    languageOptions: {
-      globals: {
-        ...globals.jest,
-      },
-    },
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": "off",
     },
   },
 ];

@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { HealthModule } from "../api/v1/modules/health/index.js";
+import { HealthModule } from "../api/v1/modules/health/health.module.js";
 
 // Setup of IOC container
 const container = new Container();
