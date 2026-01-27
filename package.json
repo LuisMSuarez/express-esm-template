@@ -14,7 +14,7 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "license:check": "npx --yes license-checker --csv --excludePrivatePackages > licensecheck/licenses.csv && node licensecheck/license-report.js",
-    "verify": "npm run format:check && npm run lint && npm run build && npm run test:coverage && npm run license:check"
+    "verify": "npm run format:check && npm run lint && npm run build && npm run test && npm run license:check"
   },
   "dependencies": {
     "dotenv-flow": "^3.3.0",

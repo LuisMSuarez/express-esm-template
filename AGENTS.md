@@ -4,4 +4,4 @@ Before finalizing any changes, the agent must ensure the following commands succ
 
 - `npm run verify`
 
-If any command fails, the agent must stop and fix the issue before continuing. PEPE
+If any command fails, the agent must stop and fix the issue before continuing.
