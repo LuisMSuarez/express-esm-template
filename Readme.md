@@ -102,6 +102,10 @@ This is essential for:
 
 Interactive API documentation with swagger-jsdoc, providing automatic OpenAPI 3.0 specification generation from JSDoc comments in the route files.
 
+## 16. AGENTS.md
+
+Pprovides shared guidance and expectations for any automated agent working in this repository, defining the rules and workflows they should follow when analyzing or modifying code.
+
 ---
 
 # 🧱 Why this template exists
