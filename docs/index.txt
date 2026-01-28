@@ -1,0 +1,23 @@
+Sample folder structure for docs folder
+
+/docs
+  /workflows
+    branching-strategy.md
+    merging-code.md
+    feature-branches.md
+    release-branches.md
+    hotfix-process.md
+  /standards
+    coding-guidelines.md
+    commit-message-conventions.md
+    pull-request-checklist.md
+  /architecture
+    overview.md
+    decisions/
+      adr-0001-context-and-goals.md
+      adr-0002-choose-express-esm.md
+  /operations
+    ci-cd-pipeline.md
+    environment-setup.md
+    deployment-process.md
+  README.md
