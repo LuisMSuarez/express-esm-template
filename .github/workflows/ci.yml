@@ -107,7 +107,6 @@ jobs:
 
     env:
       REGISTRY: ghcr.io
-      REPO: ${{ github.repository_owner }}/expressapitest
 
     permissions:
       contents: read # This is required for actions/checkout
@@ -117,6 +116,9 @@ jobs:
       # Pull repository contents into the runner
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Lowercase the repo name and username as container tags must be lowercase
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       # Use Buildx container driver so GHA caching works
       - name: Set up Buildx
