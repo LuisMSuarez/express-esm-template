@@ -5,12 +5,17 @@ name: CI
 permissions:
   contents: read
   pull-requests: write # To enable Gitleaks to add PR comments on leaked secrets
+  packages: write       # Required only for pushes to main/master when publishing to GHCR
 
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
+env:
+  REGISTRY: ghcr.io
+  REPO: ${{ github.repository_owner }}/expressapitest
 
 jobs:
   # ---------------------------------------------------------
@@ -91,3 +96,36 @@ jobs:
         env:
           CI: true
         run: npm run test:coverage --if-present --silent
+
+  # ---------------------------------------------------------
+  # Docker image build (PR) + build & publish (main/master)
+  # ---------------------------------------------------------
+  docker-image:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pull repository contents into the runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      # Authenticate to GHCR only on pushes to main/master
+      - name: Log in to GHCR
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build the container image for both PRs and pushes
+      # PR builds: image is built but NOT pushed
+      # Push to main/master: image is built AND pushed
+      - name: Build and optionally push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          # Only push when this is a push event (not a PR)
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ github.sha }}
