@@ -39,7 +39,7 @@ Branch directly from the tag to guarantee a clean, minimal patch.
 ```bash
 git checkout -b hotfix/critical-issue v1.4.0
 ```
-
+    Creates a new branch named `hotfix/critical-issue` starting from the production tag `v1.4.0`, and switches to it.
 ---
 
 ## **3. Apply the fix**
