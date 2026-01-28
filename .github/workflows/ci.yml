@@ -2,20 +2,14 @@
 # Ensures consistent quality checks before merging
 name: CI
 
-permissions:
-  contents: read
-  pull-requests: write # To enable Gitleaks to add PR comments on leaked secrets
-  packages: write       # Required only for pushes to main/master when publishing to GHCR
-
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
 
-env:
-  REGISTRY: ghcr.io
-  REPO: ${{ github.repository_owner }}/expressapitest
+permissions: 
+  contents: read   # Recommended restrictive default, and per-job/action override
 
 jobs:
   # ---------------------------------------------------------
@@ -24,6 +18,10 @@ jobs:
   gitleaks:
     name: Secret Scan (Gitleaks)
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read       # This is required for actions/checkout
+      pull-requests: write # To enable Gitleaks to add PR comments on leaked secrets
 
     steps:
       # Pull repository contents into the runner
@@ -35,7 +33,7 @@ jobs:
 
       # Run Gitleaks using the official action
       # GITHUB_TOKEN is required for PR scanning as of Gitleaks Action v2
-      # Action reads config from .gitleals.toml at repo root by default
+      # Action reads config from .gitleaks.toml at repo root by default
       # This file can be pulled (and edited) from https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
       - name: Scan for secrets with Gitleaks
         uses: gitleaks/gitleaks-action@v2
@@ -47,6 +45,7 @@ jobs:
   # Depends on Gitleaks to ensure security checks pass first
   # ---------------------------------------------------------
   build-and-test:
+  
     needs: gitleaks
     # Use GitHub’s Ubuntu runner (ephemeral VM)
     runs-on: ubuntu-latest
@@ -55,6 +54,10 @@ jobs:
       # Test across all active Node LTS versions to catch version-specific issues
       matrix:
         node-version: [20.x, 22.x, 24.x]
+
+        
+    permissions:
+      contents: read  # This is required for actions/checkout
 
     steps:
       # Pull repository contents into the runner
@@ -104,6 +107,14 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
 
+    env:
+      REGISTRY: ghcr.io
+      REPO: ${{ github.repository_owner }}/expressapitest
+
+    permissions:
+      contents: read        # This is required for actions/checkout
+      packages: write       # Required only for pushes to main/master when publishing to GHCR
+
     steps:
       # Pull repository contents into the runner
       - name: Checkout repository
@@ -114,7 +125,7 @@ jobs:
         if: github.event_name == 'push'
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -129,3 +140,6 @@ jobs:
           # Only push when this is a push event (not a PR)
           push: ${{ github.event_name == 'push' }}
           tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
