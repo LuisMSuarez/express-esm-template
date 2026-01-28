@@ -11,9 +11,9 @@ After the hotfix is tagged and deployed, the fix is merged back into `main` (and
 
 Use this workflow when:
 
-- A critical production issue must be fixed immediately  
-- The fix cannot wait for the next scheduled release  
-- `main` contains unreleased or unstable changes  
+- A critical production issue must be fixed immediately
+- The fix cannot wait for the next scheduled release
+- `main` contains unreleased or unstable changes
 - You want the hotfix tag to include **only** the hotfix commit(s)
 
 ---
@@ -39,7 +39,9 @@ Branch directly from the tag to guarantee a clean, minimal patch.
 ```bash
 git checkout -b hotfix/critical-issue v1.4.0
 ```
+
     Creates a new branch named `hotfix/critical-issue` starting from the production tag `v1.4.0`, and switches to it.
+
 ---
 
 ## **3. Apply the fix**
@@ -108,25 +110,25 @@ git push origin --delete hotfix/critical-issue
 
 # Summary
 
-| Step | Action |
-|------|--------|
-| 1 | Identify latest production tag |
-| 2 | Branch from that tag into `hotfix/*` |
-| 3 | Apply fix and commit |
-| 4 | Tag the hotfix on the hotfix branch (e.g., `v1.4.1`) |
-| 5 | Merge the hotfix into `main` |
-| 6 | Merge into active release branch (if one exists) |
-| 7 | Delete the hotfix branch |
+| Step | Action                                               |
+| ---- | ---------------------------------------------------- |
+| 1    | Identify latest production tag                       |
+| 2    | Branch from that tag into `hotfix/*`                 |
+| 3    | Apply fix and commit                                 |
+| 4    | Tag the hotfix on the hotfix branch (e.g., `v1.4.1`) |
+| 5    | Merge the hotfix into `main`                         |
+| 6    | Merge into active release branch (if one exists)     |
+| 7    | Delete the hotfix branch                             |
 
 ---
 
 # Why This Model Works
 
-- **Zero risk** of deploying unreleased work from `main`  
-- **Minimal, clean patch releases**  
-- **Production is always defined by tags**, not branches  
-- **Mainline history stays consistent** after merging the hotfix  
-- **Active release branches stay aligned** with production fixes  
+- **Zero risk** of deploying unreleased work from `main`
+- **Minimal, clean patch releases**
+- **Production is always defined by tags**, not branches
+- **Mainline history stays consistent** after merging the hotfix
+- **Active release branches stay aligned** with production fixes
 - **Future releases automatically include the fix**
 
 This model is predictable, safe, and ideal for teams that treat tags as the authoritative production state.

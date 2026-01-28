@@ -7,59 +7,70 @@ This document outlines the branching strategy used in this repository. It begins
 ## 1. Overview of Popular Branching Strategies
 
 ### 🌲 Trunk‑Based Development
+
 A lightweight model where developers branch off `main`, make small changes, and merge back quickly.
 
 **Characteristics**
-- Short‑lived feature branches  
-- Frequent merges to `main`  
-- Heavy reliance on CI  
-- Feature flags often used  
+
+- Short‑lived feature branches
+- Frequent merges to `main`
+- Heavy reliance on CI
+- Feature flags often used
 
 **Pros**
-- Fastest feedback loop  
-- Minimal merge conflicts  
+
+- Fastest feedback loop
+- Minimal merge conflicts
 
 **Cons**
-- Requires strong CI discipline  
-- Harder to support multiple release versions  
+
+- Requires strong CI discipline
+- Harder to support multiple release versions
 
 ---
 
 ### 🌿 GitFlow
+
 A structured model with dedicated branches for features, releases, and hotfixes.
 
 **Branches**
-- `main`  
-- `develop`  
-- `feature/*`  
-- `release/*`  
-- `hotfix/*`  
+
+- `main`
+- `develop`
+- `feature/*`
+- `release/*`
+- `hotfix/*`
 
 **Pros**
-- Clear separation of development and release work  
-- Supports multiple versions  
+
+- Clear separation of development and release work
+- Supports multiple versions
 
 **Cons**
-- High process overhead  
-- Lots of merging  
-- Slower feedback loops  
+
+- High process overhead
+- Lots of merging
+- Slower feedback loops
 
 ---
 
 ### 🌱 Hybrid Model (GitHub Flow + Release Branches)
+
 A modern, pragmatic approach combining the speed of trunk‑based development with the safety of release branches.
 
 **Branches**
-- `main` — always deployable  
-- `feature/*` — short‑lived  
-- `release/*` — created only when preparing a release  
-- `hotfix/*` — for urgent production fixes  
+
+- `main` — always deployable
+- `feature/*` — short‑lived
+- `release/*` — created only when preparing a release
+- `hotfix/*` — for urgent production fixes
 
 **Pros**
-- Fast development  
-- Controlled releases  
-- Minimal overhead  
-- Works well with CI/CD  
+
+- Fast development
+- Controlled releases
+- Minimal overhead
+- Works well with CI/CD
 
 This is the model used by this repository.
 
@@ -68,10 +79,11 @@ This is the model used by this repository.
 ## 2. Our Chosen Strategy: Hybrid Model
 
 The Hybrid Model gives us:
-- Fast iteration on `main`  
-- Predictable, stable releases  
-- Clean rollback points via tags  
-- A simple mental model for developers  
+
+- Fast iteration on `main`
+- Predictable, stable releases
+- Clean rollback points via tags
+- A simple mental model for developers
 
 ### **Production Source of Truth**
 
@@ -124,11 +136,13 @@ git push -u origin feature/my-new-feature
 ```
 
 ### **Step 5 — Open a Pull Request**
-- PR targets `main`  
-- CI must pass  
-- At least one reviewer approves  
+
+- PR targets `main`
+- CI must pass
+- At least one reviewer approves
 
 ### **Step 6 — Merge into `main`**
+
 Use **squash merge** or **merge commit**, depending on team preference.
 
 After merging:
@@ -156,16 +170,19 @@ git push -u origin release/2025-02-01
 ```
 
 ### **Step 2 — Stabilize the release**
+
 Allowed changes:
-- Bug fixes  
-- Documentation updates  
-- Version bumps  
-- Release notes  
+
+- Bug fixes
+- Documentation updates
+- Version bumps
+- Release notes
 
 Not allowed:
-- New features  
-- Refactors  
-- Risky changes  
+
+- New features
+- Refactors
+- Risky changes
 
 Example bug fix:
 
@@ -208,14 +225,15 @@ git push origin --delete release/2025-02-01
 
 # 6. Summary
 
-| Workflow | Branch From | Merge Into | Deployment Trigger |
-|---------|-------------|------------|--------------------|
-| Feature | `main` | `main` | None |
-| Release | `main` | `main` | **Tag** (e.g., `v1.4.0`) |
-| Hotfix | Latest production **tag** | `main` (+ active release branch) | **Tag** (e.g., `v1.4.1`) |
+| Workflow | Branch From               | Merge Into                       | Deployment Trigger       |
+| -------- | ------------------------- | -------------------------------- | ------------------------ |
+| Feature  | `main`                    | `main`                           | None                     |
+| Release  | `main`                    | `main`                           | **Tag** (e.g., `v1.4.0`) |
+| Hotfix   | Latest production **tag** | `main` (+ active release branch) | **Tag** (e.g., `v1.4.1`) |
 
 The Hybrid Model gives us:
-- Fast development  
-- Safe, intentional releases  
-- Clean rollback points  
+
+- Fast development
+- Safe, intentional releases
+- Clean rollback points
 - Minimal branching overhead

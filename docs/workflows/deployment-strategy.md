@@ -11,7 +11,7 @@ This ensures that releases are intentional, stable, and traceable.
 on:
   push:
     tags:
-      - "v*"   # Deploy only when a version tag is pushed (e.g., v1.4.0)
+      - "v*" # Deploy only when a version tag is pushed (e.g., v1.4.0)
 ```
 
 ### How it works
@@ -27,7 +27,8 @@ git push origin v1.4.0
 3. The CD workflow detects the tag push and deploys that exact version.
 
 This gives the team:
-- reproducible deployments  
-- clean rollback points  
-- intentional release control  
-- a stable, predictable production pipeline  
+
+- reproducible deployments
+- clean rollback points
+- intentional release control
+- a stable, predictable production pipeline
