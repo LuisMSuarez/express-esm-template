@@ -73,6 +73,13 @@ The Hybrid Model gives us:
 - Clean rollback points via tags  
 - A simple mental model for developers  
 
+### **Production Source of Truth**
+
+In this model, the **latest released tag represents the true production state**.  
+Tags — not branches — define what is deployed. This ensures production always maps to an immutable, reproducible commit, even when `main` contains unreleased or unstable work.
+
+Release branches stabilize upcoming releases, while hotfix branches are created directly from the latest production tag to guarantee minimal, isolated patch releases.
+
 Below is the full lifecycle for features, releases, and hotfixes.
 
 ---
@@ -205,10 +212,10 @@ git push origin --delete release/2025-02-01
 |---------|-------------|------------|--------------------|
 | Feature | `main` | `main` | None |
 | Release | `main` | `main` | **Tag** (e.g., `v1.4.0`) |
-| Hotfix | `main` | `main` (+ active release branch) | **Tag** (e.g., `v1.4.1`) |
+| Hotfix | Latest production **tag** | `main` (+ active release branch) | **Tag** (e.g., `v1.4.1`) |
 
 The Hybrid Model gives us:
 - Fast development  
 - Safe, intentional releases  
 - Clean rollback points  
-- Minimal branching overhead  
+- Minimal branching overhead
