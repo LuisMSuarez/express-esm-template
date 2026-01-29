@@ -1,5 +1,4 @@
 import express from "express";
-import morgan from "morgan";
 import pino from "pino";
 import { pinoHttp } from "pino-http";
 import swaggerUi from "swagger-ui-express";
@@ -7,9 +6,6 @@ import { swaggerSpec } from "../config/swagger.js";
 import v1 from "../api/v1/index.js";
 
 const app = express();
-
-// Add Morgan as request/access middleware
-app.use(morgan("combined"));
 
 // Create the main logger
 const logger = pino({
