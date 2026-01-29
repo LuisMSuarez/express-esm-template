@@ -66,6 +66,7 @@ git push origin v1.4.1
 ```
 
 Your CD pipeline deploys this tag.
+Validation will first be done in the Staging environment, and if verified and approved, deployment will continue to the PROD regions.
 
 ---
 
