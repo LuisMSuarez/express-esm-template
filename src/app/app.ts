@@ -4,17 +4,12 @@ import { pinoHttp } from "pino-http";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "../config/swagger.js";
 import v1 from "../api/v1/index.js";
+import { httpLogger } from "../core/logger/http-logger.js";
 
 const app = express();
 
 // Create the main logger
-const logger = pino({
-  level: "info",
-  transport: { target: "pino-pretty", options: { colorize: true } },
-});
-
-// Attach Pino to each request
-app.use(pinoHttp({ logger }));
+app.use(httpLogger);
 
 // Swagger documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
