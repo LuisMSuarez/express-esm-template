@@ -35,7 +35,7 @@ jobs:
       # GITHUB_TOKEN is required for PR scanning as of Gitleaks Action v2
       # Action reads config from .gitleaks.toml at repo root by default
       # This file can be pulled (and edited) from https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
-      - name: Scan for secrets with Gitleaks
+      - name: Scan for secrets
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,25 +78,13 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit --progress=false || npm install --no-audit --progress=false
 
-      # Prettier formatting check
-      - name: Check formatting with Prettier
-        run: npx prettier --check .
-
-      # Run linting to enforce code quality and catch issues early
-      - name: Lint (if present)
-        run: npm run lint --if-present
-
-      # Build the project only if a build script exists
-      - name: Build (if present)
-        run: npm run build --if-present
-
-      # Run tests in strict CI mode (CI=true)
-      # --if-present: safe for packages without tests
-      # --silent: reduces npm noise while preserving test output
-      - name: Run tests
+      # Unified verification step:
+      # Runs formatting checks, linting, build, tests, and any future checks
+      # Ensures CI, local dev, and agents all use the same verification entry point
+      - name: Verify project
         env:
           CI: true
-        run: npm run test:coverage --if-present --silent
+        run: npm run verify
 
   # ---------------------------------------------------------
   # Docker image build (PR) + build & publish (main/master)
@@ -117,7 +105,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Lowercase the repo name and username as container tags must be lowercase
+      # Lowercase the repo name and username as container tags must be lowercase
+      - name: Set REPO env variable
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       # Use Buildx container driver so GHA caching works
