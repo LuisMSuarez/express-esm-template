@@ -45,40 +45,29 @@ Static analysis and code quality enforcement.
 
 Consistent formatting across the entire codebase.
 
-## 7. Morgan (HTTP Access Logging)
-
-Nginx‑style access logs for every request.
-
-Morgan is a request logger designed for:
-
-- HTTP method, URL, status code, response time
-- Access log formats (combined, common, tiny)
-- Streaming logs to stdout or a file
-- Middleware integration
-
-## 8. Pino (Application Event Logging)
+## 7. Pino (Application Event Logging)
 
 High‑performance structured JSON logs for application events.
 
-## 9. VS Code Debugging (launch.json)
+## 8. VS Code Debugging (launch.json)
 
 Breakpoints, stepping, and smooth debugging experience.
 
-## 10. tsconfig.json tuned for NodeNext
+## 9. tsconfig.json tuned for NodeNext
 
 Correct ESM behavior, strict typing, and clean build output.
 
-## 11. Gitleaks credential scanner
+## 10. Gitleaks credential scanner
 
 Powerful, open-source tool designed to help developers detect secrets such as API keys, passwords, and tokens in their projects.
 
-## 12. Dotenv-flow for per-environment config
+## 11. Dotenv-flow for per-environment config
 
 dotenv‑flow is a configuration loader for Node.js that reads a layered set of .env files—base, environment‑specific, and local overrides—and merges them in the correct order based on the current NODE_ENV, giving you a clean, predictable way to manage environment variables across development, testing, staging, and production.
 
 node -e "console.log(process.env.NODE_ENV)"
 
-## 13. Dockerfile (Containerization)
+## 12. Dockerfile (Containerization)
 
 A production‑grade Dockerfile that:
 
@@ -87,7 +76,7 @@ A production‑grade Dockerfile that:
 - Ensures reproducible deployments
 - Aligns with enterprise container standards
 
-## 14. GitHub CI workflow (YAML)
+## 13. GitHub CI workflow (YAML)
 
 Automated testing, linting, type‑checking, and Node version matrix builds — ensuring every commit is validated before it reaches main.
 
@@ -98,11 +87,11 @@ This is essential for:
 - Kubernetes
 - Local reproducibility
 
-## 15. Swagger (OpenAPI Documentation)
+## 14. Swagger (OpenAPI Documentation)
 
 Interactive API documentation with swagger-jsdoc, providing automatic OpenAPI 3.0 specification generation from JSDoc comments in the route files.
 
-## 16. AGENTS.md
+## 15. AGENTS.md
 
 Pprovides shared guidance and expectations for any automated agent working in this repository, defining the rules and workflows they should follow when analyzing or modifying code.
 
