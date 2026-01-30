@@ -1,6 +1,4 @@
 import express from "express";
-import pino from "pino";
-import { pinoHttp } from "pino-http";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "../config/swagger.js";
 import v1 from "../api/v1/index.js";
